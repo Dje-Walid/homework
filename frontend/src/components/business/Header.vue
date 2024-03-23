@@ -1,18 +1,31 @@
-<script setup>
-import { RouterLink } from 'vue-router'
+<script>
 </script>
 
 <template>
-  <header class="border-b-2 border-black">
-    <div class="flex justify-between mx-10">
-      <div class="flex flex-row items-center">
-        <img src=""><img>
+  <header class="flex h-screen">
+    <aside class="w-64 flex-shrink-0">
+      <div class="flex items-center justify-center h-16 border-b">
+        <h1 class="text-2xl font-bold">Dashboard</h1>
       </div>
-      <div class="flex flex-row items-center mr-8 gap-6">
-        <router-link to="/pricing" class="hover:text-blue-400">Pricing</router-link>
-        <router-link to="/about" class="hover:text-blue-400">About us</router-link>
-        <router-link to="/sign" class="hover:text-blue-400">Sign in</router-link>
-      </div>
-    </div>
+      <nav class="mt-6 flex flex-col items-center text-center">
+        <ul>
+          <li class="px-4 py-2 text-lg text-gray-500 hover:text-white hover:bg-black rounded-lg cursor-pointer">
+            Overview
+          </li>
+          <li class="px-4 py-2 text-lg text-gray-500 hover:text-white hover:bg-black rounded-lg cursor-pointer">
+            Analytics
+          </li>
+          <li class="px-4 py-2 text-lg text-gray-500 hover:text-white hover:bg-black rounded-lg cursor-pointer">
+            Card
+          </li>
+          <li class="px-4 py-2 text-lg text-gray-500 hover:text-white hover:bg-black rounded-lg cursor-pointer">
+            Manage
+          </li>
+          <li class="px-4 py-2 text-lg text-gray-500 hover:text-white hover:bg-black rounded-lg cursor-pointer">
+            Settings
+          </li>
+        </ul>
+      </nav>
+    </aside>
   </header>
 </template>

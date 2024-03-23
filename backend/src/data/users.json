@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "email": "super@admin.fr",
+    "password": "superadmin",
+    "credit": 150
+  },
+  {
+    "id": 2,
+    "email": "admin@admin.fr",
+    "password": "admin",
+    "credit": 100
+  },
+  {
+    "id": 3,
+    "email": "user@admin.fr",
+    "password": "user",
+    "credit": 50
+  }
+]
