@@ -45,11 +45,11 @@ Voici les comptes qui vous permettront de vous connecter.
 - **email :** super@admin.fr
 - **password :** superadmin
 
-### Admin avec 100€
+### Admin avec 50€
 - **email :** admin@admin.fr"
 - **password :** admin
 
-### Utilisateur avec 50€
+### Utilisateur avec 0€
 - **email :** user@admin.fr"
 - **password :** user
 

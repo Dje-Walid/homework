@@ -9,12 +9,12 @@
     "id": 2,
     "email": "admin@admin.fr",
     "password": "admin",
-    "credit": 100
+    "credit": 50
   },
   {
     "id": 3,
     "email": "user@admin.fr",
     "password": "user",
-    "credit": 50
+    "credit": 0
   }
 ]
