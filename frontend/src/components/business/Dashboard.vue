@@ -1,13 +1,21 @@
 <script>
-import { RouterLink } from "vue-router"
 import Layout from "@/components/business/Layout.vue"
 import { useUserStore } from "@/stores/user"
-import axios from "axios";
+import CreateVMForm from "@/components/business/CreateVMForm.vue"
+import ListVM from './ListVM.vue'
+import axios from "axios"
 
 export default {
   name: "Dashboard",
   components: {
     Layout,
+    CreateVMForm,
+    ListVM
+  },
+  data() {
+    return {
+      vms: "",
+    }
   },
   setup() {
     const userStore = useUserStore()
@@ -15,39 +23,23 @@ export default {
 
     return { userStore }
   },
-  data() {
-    return {
-      username: "",
-      password: "",
-      name: "",
-      type: "",
-      error: "",
-    }
-  },
   methods: {
     async logout() {
       await this.userStore.signOut()
       this.$router.push("/login")
     },
-    async createVM() {
+    async getVms() {
       try {
-        await axios.post("http://localhost:3000/createVm", {
-          username: this.username,
-          password: this.password,
-          name: this.name,
-          type: this.type,
-        })
-
-        this.username = ""
-        this.password = ""
-        this.name = ""
-        this.type = "Linux"
+        const response = await axios.get(`http://localhost:3000/vms?userId=${this.userStore.user.id}`);
+        this.vms = response.data;
       } catch (error) {
-        console.log(error)
-        this.error = "Email or password is incorrect."
+        console.error("Error fetching VMs:", error);
       }
-    },
+    }
   },
+  mounted() {
+    this.getVms();
+  }
 }
 </script>
 
@@ -65,85 +57,10 @@ export default {
         </button>
       </div>
       <div class="p-10 w-96">
-        <form
-          class="bg-white shadow-md border-black rounded-lg px-8 py-8"
-          @submit.prevent="createVM"
-        >
-          <div>
-            <a
-              v-if="error"
-              v-text="error"
-              class="text-red-500 flex justify-center"
-            ></a>
-          </div>
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="username"
-              >Username</label
-            >
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
-              type="text"
-              v-model="username"
-              placeholder="Username"
-            />
-          </div>
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="password"
-              >Password</label
-            >
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
-              type="password"
-              v-model="password"
-              placeholder="************"
-            />
-            <div class="mb-4">
-              <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="username"
-                >Name of VM</label
-              >
-              <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="name"
-                type="text"
-                v-model="name"
-                placeholder="Name of VM"
-              />
-            </div>
-            <div class="mb-4">
-              <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="type"
-                >Type:</label
-              >
-              <select
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="type"
-                v-model="type"
-                required
-              >
-                <option value="Linux">Linux</option>
-                <option value="Windows">Windows</option>
-                <option value="Debian">Debian</option>
-              </select>
-            </div>
-          </div>
-          <div class="flex items-center justify-between">
-            <button
-              class="bg-gray-900 hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Create VM
-            </button>
-          </div>
-        </form>
+        <CreateVMForm :userStore="userStore"></CreateVMForm>
+      </div>
+      <div class="p-10">
+        <ListVM :vms="vms"></ListVM>
       </div>
     </div>
   </Layout>

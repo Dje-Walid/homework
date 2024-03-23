@@ -9,7 +9,7 @@ export const useUserStore = defineStore("user", {
 
   actions: {
     async signIn(email, password) {
-      const response = await axios.post("http://localhost:3000/signIn", { email, password }); // Utilisez votre URL correcte pour le serveur Express
+      const response = await axios.post("http://localhost:3000/signIn", { email, password });
       this.user = response.data;
       localStorage.setItem('user', JSON.stringify(this.user));
     },
@@ -17,5 +17,9 @@ export const useUserStore = defineStore("user", {
       this.user = null;
       localStorage.removeItem('user');
     },
+    async reduceCredit() {
+      this.user.credit -= 50;
+      localStorage.setItem('user', JSON.stringify(this.user));
+    }
   },
 });
